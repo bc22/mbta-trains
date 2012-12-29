@@ -52,7 +52,13 @@ app.events = app.events || _.extend({}, Backbone.Events);
 
     collections.StopActivities = Backbone.Collection.extend({
         model: app.models.StopActivity,
-        url: 'data/Red.json'
+        url: 'data/Red.json',
+        getByPlatformKey: function(platformKey) {
+            return this.filter(function(model) {
+                var v = model.get('PlatformKey');
+                return v.toLowerCase() === platformKey.toLowerCase();
+            });
+        }
     });
 
     collections.Platforms = Backbone.Collection.extend({
@@ -127,7 +133,7 @@ app.events = app.events || _.extend({}, Backbone.Events);
         events: {
             'click': function() {
                 var station = this.model.get('StationName').toLowerCase();
-                var direction = this.model.get('Direction').toLowerCase();
+                var direction = this.model.get('PlatformKey').toLowerCase();
                 var url = 'platform/' + station + '/' + direction;
                 app.router.navigate(url, true);
             }
@@ -175,6 +181,45 @@ app.events = app.events || _.extend({}, Backbone.Events);
         }
     });
 
+    views.ActivityListItem = Backbone.View.extend({
+        tagName: 'li',
+        render: function() {
+            this.$el.html(this.model.get('Time'));
+            return this;
+        }
+    });
+
+    views.ActivityList = views.BaseListView.extend({
+        initialize: function(options) {
+            this.PlatformKey = options.PlatformKey;
+        },
+        render: function() {
+            var items = this.collection.getByPlatformKey(this.PlatformKey);
+            _(items).each(function(item){
+                var v = new views.ActivityListItem({model:item});
+                this.$el.append(v.render().el);
+            }, this);
+            return this;
+        }
+    });
+
+    views.ActivityView = Backbone.View.extend({
+        listView: null,
+        initialize: function(options) {
+            this.collection = new app.collections.StopActivities();
+            this.collection.fetch({async:false});
+
+            listView = new views.ActivityList({
+                PlatformKey: options.PlatformKey,
+                collection: this.collection
+            });
+        },
+        render: function() {
+            this.$el.html(listView.render().el);
+            return this;
+        }
+    });
+
 })(app.views = app.views || {});
 
 (function(routers){
@@ -201,7 +246,7 @@ app.events = app.events || _.extend({}, Backbone.Events);
             this.showView(new app.views.PlatformListView({model:name}));
         },
         direction: function(name, direction) {
-            
+            this.showView(new app.views.ActivityView({PlatformKey:direction}));
         }
     });
 
