@@ -9,8 +9,6 @@ Backbone.View.prototype.close = function() {
 
 var app = app || {};
 
-app.events = app.events || _.extend({}, Backbone.Events);
-
 (function(models){
 
     models.Platform = Backbone.Model.extend({
@@ -124,8 +122,7 @@ app.events = app.events || _.extend({}, Backbone.Events);
 
     views.CurrentStopView = Backbone.View.extend({
         initialize: function() {
-            this.collection = new app.collections.Platforms();
-            this.collection.fetch({async:false});
+            this.collection = app.data.PlatformData;
         },
         render: function() {
             var v = new app.views.CurrentStopList({
@@ -136,55 +133,38 @@ app.events = app.events || _.extend({}, Backbone.Events);
         }
     });
 
-    views.PlatformListItem = Backbone.View.extend({
-        tagName: 'li',
-        events: {
-            'click': function() {
-                var station = this.model.get('StationName').toLowerCase();
-                var direction = this.model.get('PlatformKey').toLowerCase();
-                var url = 'platform/' + station + '/' + direction;
-                app.router.navigate(url, true);
-            }
-        },
-        render: function() {
-            var direction = this.model.get('Direction');
-
-            if (direction === 'NB') {
-                this.$el.html('South Bound');
-            } else if (direction === 'SB') {
-                this.$el.html('North Bound');
-            }
-
-            return this;
-        }
-    });
-
-    views.PlatformList = views.BaseListView.extend({
-        render: function() {
-            var platforms = this.collection.getPlatformsByStation(this.model);
-
-            _(platforms).each(function(platform){
-                var v = new views.PlatformListItem({model:platform});
-                this.$el.append(v.render().el);
-            }, this);
-
-            return this;
-        }
-    });
-
     views.PlatformListView = Backbone.View.extend({
-        platformList: null,
-        initialize: function() {
-            this.collection = new app.collections.Platforms();
-            this.collection.fetch({async:false});
+        views: [],
+        initialize: function(options) {
+            var v;
+            while ((v = this.views.pop())) {
+                v.close();
+            }
 
-            this.platformList = new views.PlatformList({
-                collection: this.collection,
-                model: this.model
-            });
+            var p = app.data.PlatformData.getPlatformsByStation(options.name);
+
+            var activity = app.data.ActivityData;
+
+            _(p).each(function(platform){
+                var key = platform.get('PlatformKey');
+
+                var items = activity.getByPlatformKey(key);
+
+                if (items.length) {
+                    var v = new app.views.ActivityList({
+                        model: platform,
+                        collection: activity
+                    });
+
+                    this.views.push(v);
+                }
+            }, this);
         },
         render: function() {
-            this.$el.html(this.platformList.render().el);
+            this.$el.html('');
+            _(this.views).each(function(view){
+                this.$el.append(view.render().el);
+            }, this);
             return this;
         }
     });
@@ -192,43 +172,39 @@ app.events = app.events || _.extend({}, Backbone.Events);
     views.ActivityListItem = Backbone.View.extend({
         tagName: 'li',
         render: function() {
-            var time = this.model.get('Time');
-            var m = moment(time);
+            var m = moment(this.model.get('Time'));
             this.$el.html(m.fromNow());
             return this;
         }
     });
 
     views.ActivityList = views.BaseListView.extend({
-        initialize: function(options) {
-            this.PlatformKey = options.PlatformKey;
-        },
         render: function() {
-            var items = this.collection.getByPlatformKey(this.PlatformKey);
+            this.$el.html('');
+
+            var direction = this.model.get('Direction');
+
+            if (direction === 'SB') {
+                direction = 'South Bound'
+            } else if (direction === 'NB') {
+                direction = 'North Bound';
+            }
+
+            var divider = $('<li class="list-divider">' + direction + '</li>');
+            this.$el.append(divider);
+
+            var key = this.model.get('PlatformKey');
+
+            var items = this.collection.getByPlatformKey(key);
+
             _(items).each(function(item){
-                var v = new views.ActivityListItem({model:item});
+                var v = new app.views.ActivityListItem({
+                    model: item
+                });
+
                 this.$el.append(v.render().el);
             }, this);
-            return this;
-        }
-    });
 
-    views.ActivityView = Backbone.View.extend({
-        listView: null,
-        initialize: function(options) {
-            this.collection = new app.collections.StopActivities();
-            this.collection.fetch({async:false});
-
-            listView = new views.ActivityList({
-                PlatformKey: options.PlatformKey,
-                collection: this.collection
-            });
-
-            this.collection.bind("reset", this.render, this);
-            this.collection.bind("add", this.render, this);
-        },
-        render: function() {
-            this.$el.html(listView.render().el);
             return this;
         }
     });
@@ -240,7 +216,6 @@ app.events = app.events || _.extend({}, Backbone.Events);
     routers.Router = Backbone.Router.extend({
        routes: {
            '': 'index',
-           'platform/:name/:direction': 'direction',
            'platform/:name': 'platform'
        },
        showView: function(view) {
@@ -256,16 +231,45 @@ app.events = app.events || _.extend({}, Backbone.Events);
             this.showView(new app.views.CurrentStopView());
         },
         platform: function(name) {
-            this.showView(new app.views.PlatformListView({model:name}));
-        },
-        direction: function(name, direction) {
-            this.showView(new app.views.ActivityView({PlatformKey:direction}));
+            var v = new app.views.PlatformListView({
+                name: name
+            });
+            this.showView(v);
         }
     });
 
 })(app.routers = app.routers || {});
 
+function loadData(callback) {
+    app.data = app.data || {};
+
+    if (!app.data.PlatformData) {
+        app.data.PlatformData = new app.collections.Platforms();
+    }
+
+    var count = 0;
+    var handleSuccess = function() {
+        if (++count === 2 && callback) {
+            callback();
+        }
+    };
+
+    app.data.PlatformData.fetch({
+        success: handleSuccess
+    });
+
+    if (!app.data.ActivityData) {
+        app.data.ActivityData = new app.collections.StopActivities();
+    }
+
+    app.data.ActivityData.fetch({
+        success: handleSuccess
+    });
+}
+
 $(function() {
-    app.router = new app.routers.Router();
-    Backbone.history.start();
+    loadData(function() {
+        app.router = new app.routers.Router();
+        Backbone.history.start();
+    });
 });
