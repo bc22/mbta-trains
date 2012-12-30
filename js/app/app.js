@@ -52,7 +52,15 @@ app.events = app.events || _.extend({}, Backbone.Events);
 
     collections.StopActivities = Backbone.Collection.extend({
         model: app.models.StopActivity,
-        url: 'data/Red.json',
+        url: 'http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20xml%20where%20url%3D\'http%3A%2F%2Fdeveloper.mbta.com%2FData%2FRed.xml\'&format=json&diagnostics=true',
+        sync: function(method, model, options){
+            options.timeout = 10000;
+            options.dataType = 'jsonp';
+            return Backbone.sync(method, model, options);
+        },
+        parse: function(response) {
+            return response.query.results.Root.Red;
+        },
         getByPlatformKey: function(platformKey) {
             return this.filter(function(model) {
                 var v = model.get('PlatformKey');
@@ -165,18 +173,18 @@ app.events = app.events || _.extend({}, Backbone.Events);
     });
 
     views.PlatformListView = Backbone.View.extend({
+        platformList: null,
         initialize: function() {
             this.collection = new app.collections.Platforms();
             this.collection.fetch({async:false});
-        },
-        render: function() {
-            var v = new views.PlatformList({
+
+            this.platformList = new views.PlatformList({
                 collection: this.collection,
                 model: this.model
             });
-
-            this.$el.html(v.render().el);
-
+        },
+        render: function() {
+            this.$el.html(this.platformList.render().el);
             return this;
         }
     });
@@ -184,7 +192,9 @@ app.events = app.events || _.extend({}, Backbone.Events);
     views.ActivityListItem = Backbone.View.extend({
         tagName: 'li',
         render: function() {
-            this.$el.html(this.model.get('Time'));
+            var time = this.model.get('Time');
+            var m = moment(time);
+            this.$el.html(m.fromNow());
             return this;
         }
     });
@@ -213,6 +223,9 @@ app.events = app.events || _.extend({}, Backbone.Events);
                 PlatformKey: options.PlatformKey,
                 collection: this.collection
             });
+
+            this.collection.bind("reset", this.render, this);
+            this.collection.bind("add", this.render, this);
         },
         render: function() {
             this.$el.html(listView.render().el);
