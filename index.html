@@ -38,6 +38,18 @@
     <script src="js/app/util.js"></script>
     <script src="js/app/app.js"></script>
 
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-37332471-1']);
+
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+
+    </script>
 </head>
 <body>
 
@@ -47,7 +59,7 @@
             Stops
         </a>
         <h1 id="title" class="title">
-            
+
         </h1>
         <a id="next-button" class="button" href="#" style="display: none;">
             Refresh

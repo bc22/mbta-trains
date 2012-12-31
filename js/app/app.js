@@ -275,6 +275,8 @@ app.events = app.events || _.extend({}, Backbone.Events);
            'platform/:id': 'station'
        },
        showView: function(view) {
+           _gaq.push(['_trackPageview']);
+
             if (this.currentView){
                 this.currentView.close();
             }
@@ -287,6 +289,8 @@ app.events = app.events || _.extend({}, Backbone.Events);
             this.showView(new app.views.CurrentStopView());
         },
         station: function(id) {
+            _gaq.push(['_trackEvent', 'Activities', id]);
+
             var v = new app.views.PlatformListView({
                 id: id
             });
