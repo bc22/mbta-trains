@@ -224,10 +224,14 @@ app.events = app.events || _.extend({}, Backbone.Events);
         initialTitle: 'MBTA Train Tracker',
         events: {
             'click #back-button': function() {
+                _gaq.push(['_trackEvent', 'Header', 'Back']);
+
                 app.router.navigate('', true);
                 return false;
             },
             'click #next-button': function() {
+                _gaq.push(['_trackEvent', 'Header', 'Refresh']);
+
                 app.data.ActivityData.reset();
                 app.data.ActivityData.fetch();
                 return false;
