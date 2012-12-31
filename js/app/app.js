@@ -9,6 +9,8 @@ Backbone.View.prototype.close = function() {
 
 var app = app || {};
 
+app.events = app.events || _.extend({}, Backbone.Events);
+
 (function(models){
 
     models.Platform = Backbone.Model.extend({
@@ -107,6 +109,11 @@ var app = app || {};
             });
         },
         render: function() {
+            app.events.trigger('header:title:reset');
+
+            app.events.trigger('header:right:hide');
+            app.events.trigger('header:left:hide');
+
             this.$el.html(this.listView.render().el);
             return this;
         },
@@ -126,6 +133,15 @@ var app = app || {};
             }
         },
         initialize: function(options) {
+            this.id = options.id;
+
+            app.events.trigger('header:right:show');
+            app.events.trigger('header:left:show');
+
+            app.data.ActivityData.on('change', this.render, this);
+            app.data.ActivityData.on('reset', this.render, this);
+        },
+        render: function() {
             this.cleanUpViews();
 
             var activities = app.data.ActivityData;
@@ -133,8 +149,8 @@ var app = app || {};
             // get all of the activities belonging to this station
             var data = _(activities.models).filter(function(activity){
                 var id = slugify(activity.get('Stop'));
-                return id === options.id && activity.get('Destination') !== activity.get('Stop');
-            });
+                return id === this.id && activity.get('Destination') !== activity.get('Stop');
+            }, this);
 
             // group them by destination
             var grouped = _(data).groupBy(function(item) {
@@ -149,12 +165,13 @@ var app = app || {};
 
                 this.views.push(v);
             }, this);
-        },
-        render: function() {
+
             this.$el.html('');
+
             _(this.views).each(function(view){
                 this.$el.append(view.render().el);
             }, this);
+
             return this;
         }
     });
@@ -188,6 +205,54 @@ var app = app || {};
             }, this);
 
             return this;
+        }
+    });
+
+    views.HeaderView = Backbone.View.extend({
+        leftButton: null,
+        rightButton: null,
+        title: null,
+        initialTitle: null,
+        events: {
+            'click #back-button': function() {
+                app.router.navigate('', true);
+                return false;
+            },
+            'click #next-button': function() {
+                app.data.ActivityData.reset();
+                app.data.ActivityData.fetch();
+                return false;
+            }
+        },
+        initialize: function() {
+            this.leftButton = $('#back-button');
+            this.rightButton = $('#next-button');
+            this.title = $('#title');
+            this.initialTitle = this.title.text();
+
+            app.events.on('header:left:show', function() {
+                this.leftButton.show();
+            }, this);
+
+            app.events.on('header:left:hide', function() {
+                this.leftButton.hide();
+            }, this);
+
+            app.events.on('header:right:show', function() {
+                this.rightButton.show();
+            }, this);
+
+            app.events.on('header:right:hide', function() {
+                this.rightButton.hide();
+            }, this);
+
+            app.events.on('header:title:set', function(title) {
+                this.title.text(title);
+            }, this);
+
+            app.events.on('header:title:reset', function() {
+                this.title.text(this.initialTitle);
+            }, this);
         }
     });
 
@@ -251,6 +316,10 @@ function loadData(callback) {
 
 $(function() {
     loadData(function() {
+        app.header = new app.views.HeaderView({
+            el: '#header'
+        });
+
         app.router = new app.routers.Router();
         Backbone.history.start();
     });
