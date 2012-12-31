@@ -28,5 +28,41 @@
     },
     {
         "Stop": "South Station"
+    },
+    {
+        "Stop": "Broadway"
+    },
+    {
+        "Stop": "Andrew"
+    },
+    {
+        "Stop": "JFK/UMass"
+    },
+    {
+        "Stop": "North Quincy"
+    },
+    {
+        "Stop": "Wollaston"
+    },
+    {
+        "Stop": "Quincy Center"
+    },
+    {
+        "Stop": "Quincy Adams"
+    },
+    {
+        "Stop": "Braintree"
+    },
+    {
+        "Stop": "Savin Hill"
+    },
+    {
+        "Stop": "Fields Corner"
+    },
+    {
+        "Stop": "Shawmut"
+    },
+    {
+        "Stop": "Ashmont"
     }
 ]
