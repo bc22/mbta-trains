@@ -241,7 +241,6 @@ app.events = app.events || _.extend({}, Backbone.Events);
             this.leftButton = $('#back-button');
             this.rightButton = $('#next-button');
             this.title = $('#title');
-            this.initialTitle = this.title.text();
 
             app.events.on('header:left:show', function() {
                 this.leftButton.show();
