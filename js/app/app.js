@@ -138,6 +138,15 @@ app.events = app.events || _.extend({}, Backbone.Events);
             app.events.trigger('header:right:show');
             app.events.trigger('header:left:show');
 
+            var platform = app.data.PlatformData.find(function(model){
+                var id = slugify(model.get('Stop'));
+                return id === this.id;
+            }, this);
+
+            if (platform) {
+                app.events.trigger('header:title:set', platform.get('Stop'));
+            }
+
             app.data.ActivityData.on('change', this.render, this);
             app.data.ActivityData.on('reset', this.render, this);
         },
@@ -212,7 +221,7 @@ app.events = app.events || _.extend({}, Backbone.Events);
         leftButton: null,
         rightButton: null,
         title: null,
-        initialTitle: null,
+        initialTitle: 'MBTA Train Tracker',
         events: {
             'click #back-button': function() {
                 app.router.navigate('', true);
