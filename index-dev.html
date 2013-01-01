@@ -20,7 +20,7 @@
     <link rel="apple-touch-icon-precomposed" sizes="57x57" href="touch-icons/apple-touch-icon-57x57.png">
 
     <!-- Include the compiled Ratchet CSS -->
-    <link rel="stylesheet" href="css/min.css">
+    <link rel="stylesheet" href="css/ratchet.css">
 
     <script type="text/html" id="tpl-activity-item">
         <%=seconds%><br/><span style="color: gray;"><%=time%></span>
@@ -41,27 +41,38 @@
 </head>
 <body>
 
-    <!-- Make sure all your bars are the first things in your <body> -->
-    <header id="header" class="bar-title">
-        <a id="back-button" class="button-prev" href="#" style="display: none;">
-            Stops
-        </a>
-        <h1 id="title" class="title">
+<!-- Make sure all your bars are the first things in your <body> -->
+<header id="header" class="bar-title">
+    <a id="back-button" class="button-prev" href="#" style="display: none;">
+        Stops
+    </a>
+    <h1 id="title" class="title">
 
-        </h1>
-        <a id="next-button" class="button" href="#" style="display: none;">
-            Refresh
-        </a>
-    </header>
+    </h1>
+    <a id="next-button" class="button" href="#" style="display: none;">
+        Refresh
+    </a>
+</header>
 
-    <!-- Wrap all non-bar HTML in the .content div (this is actually what scrolls) -->
-    <div id="content" class="content" style="padding-top: 10px;">
+<!-- Wrap all non-bar HTML in the .content div (this is actually what scrolls) -->
+<div id="content" class="content" style="padding-top: 10px;">
 
 
-    </div>
+</div>
 
-    <script src="js/libs.js"></script>
-    <script src="js/app.js"></script>
+<script src="js/lib/jquery-1.8.3.js"></script>
+<script src="js/lib/underscore.js"></script>
+<script src="js/lib/backbone.js"></script>
+<script src="js/lib/moment.js"></script>
 
-  </body>
+<!-- Include the compiled Ratchet JS -->
+<script src="js/lib/ratchet/popovers.js"></script>
+<script src="js/lib/ratchet/segmented-controllers.js"></script>
+<script src="js/lib/ratchet/sliders.js"></script>
+<script src="js/lib/ratchet/toggles.js"></script>
+
+<script src="js/app/util.js"></script>
+<script src="js/app/app.js"></script>
+
+</body>
 </html>
