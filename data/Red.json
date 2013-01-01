@@ -1,121 +1,68 @@
 [
-{  "Line" : "Red", "Trip" : 462, "PlatformKey" : "RBRAS", "InformationType" : "Arrived", "Time" : "12/29/2012 2:35:55 PM", "TimeRemaining" : "-00:02:33", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 467, "PlatformKey" : "RALEN", "InformationType" : "Arrived", "Time" : "12/29/2012 2:38:11 PM", "TimeRemaining" : "-00:00:16", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 472, "PlatformKey" : "RFIES", "InformationType" : "Arrived", "Time" : "12/29/2012 2:31:42 PM", "TimeRemaining" : "-00:06:46", "Revenue" : "Revenue", "Route" : "1" },
-{  "Line" : "Red", "Trip" : 472, "PlatformKey" : "RSHAS", "InformationType" : "Predicted", "Time" : "12/29/2012 2:33:41 PM", "TimeRemaining" : "-00:04:46", "Revenue" : "Revenue", "Route" : "1" },
-{  "Line" : "Red", "Trip" : 472, "PlatformKey" : "RASHS", "InformationType" : "Predicted", "Time" : "12/29/2012 2:36:12 PM", "TimeRemaining" : "-00:02:15", "Revenue" : "Revenue", "Route" : "1" },
-{  "Line" : "Red", "Trip" : 475, "PlatformKey" : "RWOLS", "InformationType" : "Arrived", "Time" : "12/29/2012 2:37:22 PM", "TimeRemaining" : "-00:01:05", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 475, "PlatformKey" : "RQUCS", "InformationType" : "Predicted", "Time" : "12/29/2012 2:40:24 PM", "TimeRemaining" : "00:01:55", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 475, "PlatformKey" : "RQUAS", "InformationType" : "Predicted", "Time" : "12/29/2012 2:43:17 PM", "TimeRemaining" : "00:04:49", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 475, "PlatformKey" : "RBRAS", "InformationType" : "Predicted", "Time" : "12/29/2012 2:47:16 PM", "TimeRemaining" : "00:08:47", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 479, "PlatformKey" : "RCENN", "InformationType" : "Arrived", "Time" : "12/29/2012 2:38:06 PM", "TimeRemaining" : "-00:00:22", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 479, "PlatformKey" : "RHARN", "InformationType" : "Predicted", "Time" : "12/29/2012 2:41:17 PM", "TimeRemaining" : "00:02:49", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 479, "PlatformKey" : "RPORN", "InformationType" : "Predicted", "Time" : "12/29/2012 2:44:17 PM", "TimeRemaining" : "00:05:49", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 479, "PlatformKey" : "RDAVN", "InformationType" : "Predicted", "Time" : "12/29/2012 2:46:31 PM", "TimeRemaining" : "00:08:02", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 479, "PlatformKey" : "RALEN", "InformationType" : "Predicted", "Time" : "12/29/2012 2:49:30 PM", "TimeRemaining" : "00:11:02", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 480, "PlatformKey" : "RPORN", "InformationType" : "Arrived", "Time" : "12/29/2012 2:37:54 PM", "TimeRemaining" : "-00:00:33", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 480, "PlatformKey" : "RDAVN", "InformationType" : "Predicted", "Time" : "12/29/2012 2:40:08 PM", "TimeRemaining" : "00:01:39", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 480, "PlatformKey" : "RALEN", "InformationType" : "Predicted", "Time" : "12/29/2012 2:43:07 PM", "TimeRemaining" : "00:04:39", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 485, "PlatformKey" : "RJFKS", "InformationType" : "Arrived", "Time" : "12/29/2012 2:36:40 PM", "TimeRemaining" : "-00:01:48", "Revenue" : "Revenue", "Route" : "1" },
-{  "Line" : "Red", "Trip" : 485, "PlatformKey" : "RSAVS", "InformationType" : "Predicted", "Time" : "12/29/2012 2:38:11 PM", "TimeRemaining" : "-00:00:16", "Revenue" : "Revenue", "Route" : "1" },
-{  "Line" : "Red", "Trip" : 485, "PlatformKey" : "RFIES", "InformationType" : "Predicted", "Time" : "12/29/2012 2:42:13 PM", "TimeRemaining" : "00:03:44", "Revenue" : "Revenue", "Route" : "1" },
-{  "Line" : "Red", "Trip" : 485, "PlatformKey" : "RSHAS", "InformationType" : "Predicted", "Time" : "12/29/2012 2:44:12 PM", "TimeRemaining" : "00:05:44", "Revenue" : "Revenue", "Route" : "1" },
-{  "Line" : "Red", "Trip" : 485, "PlatformKey" : "RASHS", "InformationType" : "Predicted", "Time" : "12/29/2012 2:46:43 PM", "TimeRemaining" : "00:08:15", "Revenue" : "Revenue", "Route" : "1" },
-{  "Line" : "Red", "Trip" : 489, "PlatformKey" : "RANDS", "InformationType" : "Arrived", "Time" : "12/29/2012 2:38:28 PM", "TimeRemaining" : "-00:00:00", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 489, "PlatformKey" : "RJFKS", "InformationType" : "Predicted", "Time" : "12/29/2012 2:41:53 PM", "TimeRemaining" : "00:03:24", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 489, "PlatformKey" : "RNQUS", "InformationType" : "Predicted", "Time" : "12/29/2012 2:50:00 PM", "TimeRemaining" : "00:11:31", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 489, "PlatformKey" : "RWOLS", "InformationType" : "Predicted", "Time" : "12/29/2012 2:52:36 PM", "TimeRemaining" : "00:14:07", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 489, "PlatformKey" : "RQUCS", "InformationType" : "Predicted", "Time" : "12/29/2012 2:55:37 PM", "TimeRemaining" : "00:17:08", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 489, "PlatformKey" : "RQUAS", "InformationType" : "Predicted", "Time" : "12/29/2012 2:58:31 PM", "TimeRemaining" : "00:20:02", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 489, "PlatformKey" : "RBRAS", "InformationType" : "Predicted", "Time" : "12/29/2012 3:02:29 PM", "TimeRemaining" : "00:24:01", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 494, "PlatformKey" : "RANDN", "InformationType" : "Arrived", "Time" : "12/29/2012 2:38:26 PM", "TimeRemaining" : "-00:00:02", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 494, "PlatformKey" : "RBRON", "InformationType" : "Predicted", "Time" : "12/29/2012 2:40:43 PM", "TimeRemaining" : "00:02:14", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 494, "PlatformKey" : "RSOUN", "InformationType" : "Predicted", "Time" : "12/29/2012 2:43:03 PM", "TimeRemaining" : "00:04:35", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 494, "PlatformKey" : "RDTCN", "InformationType" : "Predicted", "Time" : "12/29/2012 2:43:59 PM", "TimeRemaining" : "00:05:30", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 494, "PlatformKey" : "RPRKN", "InformationType" : "Predicted", "Time" : "12/29/2012 2:45:24 PM", "TimeRemaining" : "00:06:55", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 494, "PlatformKey" : "RMGHN", "InformationType" : "Predicted", "Time" : "12/29/2012 2:48:03 PM", "TimeRemaining" : "00:09:34", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 494, "PlatformKey" : "RKENN", "InformationType" : "Predicted", "Time" : "12/29/2012 2:50:10 PM", "TimeRemaining" : "00:11:41", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 494, "PlatformKey" : "RCENN", "InformationType" : "Predicted", "Time" : "12/29/2012 2:52:41 PM", "TimeRemaining" : "00:14:13", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 494, "PlatformKey" : "RHARN", "InformationType" : "Predicted", "Time" : "12/29/2012 2:55:53 PM", "TimeRemaining" : "00:17:24", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 494, "PlatformKey" : "RPORN", "InformationType" : "Predicted", "Time" : "12/29/2012 2:58:53 PM", "TimeRemaining" : "00:20:24", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 494, "PlatformKey" : "RDAVN", "InformationType" : "Predicted", "Time" : "12/29/2012 3:01:06 PM", "TimeRemaining" : "00:22:37", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 494, "PlatformKey" : "RALEN", "InformationType" : "Predicted", "Time" : "12/29/2012 3:03:58 PM", "TimeRemaining" : "00:25:29", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 495, "PlatformKey" : "RPRKN", "InformationType" : "Arrived", "Time" : "12/29/2012 2:38:01 PM", "TimeRemaining" : "-00:00:26", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 495, "PlatformKey" : "RMGHN", "InformationType" : "Predicted", "Time" : "12/29/2012 2:40:40 PM", "TimeRemaining" : "00:02:12", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 495, "PlatformKey" : "RKENN", "InformationType" : "Predicted", "Time" : "12/29/2012 2:42:47 PM", "TimeRemaining" : "00:04:19", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 495, "PlatformKey" : "RCENN", "InformationType" : "Predicted", "Time" : "12/29/2012 2:45:54 PM", "TimeRemaining" : "00:07:25", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 495, "PlatformKey" : "RHARN", "InformationType" : "Predicted", "Time" : "12/29/2012 2:49:05 PM", "TimeRemaining" : "00:10:36", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 495, "PlatformKey" : "RPORN", "InformationType" : "Predicted", "Time" : "12/29/2012 2:52:05 PM", "TimeRemaining" : "00:13:36", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 495, "PlatformKey" : "RDAVN", "InformationType" : "Predicted", "Time" : "12/29/2012 2:54:19 PM", "TimeRemaining" : "00:15:50", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 495, "PlatformKey" : "RALEN", "InformationType" : "Predicted", "Time" : "12/29/2012 2:57:18 PM", "TimeRemaining" : "00:18:49", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 498, "PlatformKey" : "RMGHS", "InformationType" : "Arrived", "Time" : "12/29/2012 2:37:54 PM", "TimeRemaining" : "-00:00:34", "Revenue" : "Revenue", "Route" : "1" },
-{  "Line" : "Red", "Trip" : 498, "PlatformKey" : "RPRKS", "InformationType" : "Predicted", "Time" : "12/29/2012 2:39:47 PM", "TimeRemaining" : "00:01:19", "Revenue" : "Revenue", "Route" : "1" },
-{  "Line" : "Red", "Trip" : 498, "PlatformKey" : "RDTCS", "InformationType" : "Predicted", "Time" : "12/29/2012 2:40:54 PM", "TimeRemaining" : "00:02:26", "Revenue" : "Revenue", "Route" : "1" },
-{  "Line" : "Red", "Trip" : 498, "PlatformKey" : "RSOUS", "InformationType" : "Predicted", "Time" : "12/29/2012 2:43:35 PM", "TimeRemaining" : "00:05:06", "Revenue" : "Revenue", "Route" : "1" },
-{  "Line" : "Red", "Trip" : 498, "PlatformKey" : "RBROS", "InformationType" : "Predicted", "Time" : "12/29/2012 2:45:07 PM", "TimeRemaining" : "00:06:38", "Revenue" : "Revenue", "Route" : "1" },
-{  "Line" : "Red", "Trip" : 498, "PlatformKey" : "RANDS", "InformationType" : "Predicted", "Time" : "12/29/2012 2:47:35 PM", "TimeRemaining" : "00:09:06", "Revenue" : "Revenue", "Route" : "1" },
-{  "Line" : "Red", "Trip" : 498, "PlatformKey" : "RJFKS", "InformationType" : "Predicted", "Time" : "12/29/2012 2:51:00 PM", "TimeRemaining" : "00:12:31", "Revenue" : "Revenue", "Route" : "1" },
-{  "Line" : "Red", "Trip" : 498, "PlatformKey" : "RSAVS", "InformationType" : "Predicted", "Time" : "12/29/2012 2:52:32 PM", "TimeRemaining" : "00:14:03", "Revenue" : "Revenue", "Route" : "1" },
-{  "Line" : "Red", "Trip" : 498, "PlatformKey" : "RFIES", "InformationType" : "Predicted", "Time" : "12/29/2012 2:56:33 PM", "TimeRemaining" : "00:18:04", "Revenue" : "Revenue", "Route" : "1" },
-{  "Line" : "Red", "Trip" : 498, "PlatformKey" : "RSHAS", "InformationType" : "Predicted", "Time" : "12/29/2012 2:58:32 PM", "TimeRemaining" : "00:20:04", "Revenue" : "Revenue", "Route" : "1" },
-{  "Line" : "Red", "Trip" : 498, "PlatformKey" : "RASHS", "InformationType" : "Predicted", "Time" : "12/29/2012 3:01:03 PM", "TimeRemaining" : "00:22:35", "Revenue" : "Revenue", "Route" : "1" },
-{  "Line" : "Red", "Trip" : 503, "PlatformKey" : "RHARS", "InformationType" : "Arrived", "Time" : "12/29/2012 2:36:42 PM", "TimeRemaining" : "-00:01:45", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 503, "PlatformKey" : "RCENS", "InformationType" : "Predicted", "Time" : "12/29/2012 2:40:21 PM", "TimeRemaining" : "00:01:53", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 503, "PlatformKey" : "RKENS", "InformationType" : "Predicted", "Time" : "12/29/2012 2:42:41 PM", "TimeRemaining" : "00:04:13", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 503, "PlatformKey" : "RMGHS", "InformationType" : "Predicted", "Time" : "12/29/2012 2:45:03 PM", "TimeRemaining" : "00:06:35", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 503, "PlatformKey" : "RPRKS", "InformationType" : "Predicted", "Time" : "12/29/2012 2:46:57 PM", "TimeRemaining" : "00:08:28", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 503, "PlatformKey" : "RDTCS", "InformationType" : "Predicted", "Time" : "12/29/2012 2:48:04 PM", "TimeRemaining" : "00:09:35", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 503, "PlatformKey" : "RSOUS", "InformationType" : "Predicted", "Time" : "12/29/2012 2:50:44 PM", "TimeRemaining" : "00:12:16", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 503, "PlatformKey" : "RBROS", "InformationType" : "Predicted", "Time" : "12/29/2012 2:52:16 PM", "TimeRemaining" : "00:13:48", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 503, "PlatformKey" : "RANDS", "InformationType" : "Predicted", "Time" : "12/29/2012 2:54:44 PM", "TimeRemaining" : "00:16:16", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 503, "PlatformKey" : "RJFKS", "InformationType" : "Predicted", "Time" : "12/29/2012 2:58:09 PM", "TimeRemaining" : "00:19:40", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 503, "PlatformKey" : "RNQUS", "InformationType" : "Predicted", "Time" : "12/29/2012 3:06:16 PM", "TimeRemaining" : "00:27:47", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 503, "PlatformKey" : "RWOLS", "InformationType" : "Predicted", "Time" : "12/29/2012 3:08:57 PM", "TimeRemaining" : "00:30:28", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 503, "PlatformKey" : "RQUCS", "InformationType" : "Predicted", "Time" : "12/29/2012 3:11:58 PM", "TimeRemaining" : "00:33:29", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 503, "PlatformKey" : "RQUAS", "InformationType" : "Predicted", "Time" : "12/29/2012 3:14:52 PM", "TimeRemaining" : "00:36:23", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 503, "PlatformKey" : "RBRAS", "InformationType" : "Predicted", "Time" : "12/29/2012 3:18:50 PM", "TimeRemaining" : "00:40:22", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 506, "PlatformKey" : "RASHS", "InformationType" : "Arrived", "Time" : "12/29/2012 2:34:55 PM", "TimeRemaining" : "-00:03:32", "Revenue" : "Nonrevenue", "Route" : "1" },
-{  "Line" : "Red", "Trip" : 507, "PlatformKey" : "RQUCN", "InformationType" : "Arrived", "Time" : "12/29/2012 2:37:53 PM", "TimeRemaining" : "-00:00:34", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 507, "PlatformKey" : "RWOLN", "InformationType" : "Predicted", "Time" : "12/29/2012 2:41:05 PM", "TimeRemaining" : "00:02:36", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 507, "PlatformKey" : "RNQUN", "InformationType" : "Predicted", "Time" : "12/29/2012 2:42:49 PM", "TimeRemaining" : "00:04:20", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 507, "PlatformKey" : "RJFKN", "InformationType" : "Predicted", "Time" : "12/29/2012 2:49:13 PM", "TimeRemaining" : "00:10:44", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 507, "PlatformKey" : "RANDN", "InformationType" : "Predicted", "Time" : "12/29/2012 2:51:35 PM", "TimeRemaining" : "00:13:06", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 507, "PlatformKey" : "RBRON", "InformationType" : "Predicted", "Time" : "12/29/2012 2:53:52 PM", "TimeRemaining" : "00:15:23", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 507, "PlatformKey" : "RSOUN", "InformationType" : "Predicted", "Time" : "12/29/2012 2:56:12 PM", "TimeRemaining" : "00:17:44", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 507, "PlatformKey" : "RDTCN", "InformationType" : "Predicted", "Time" : "12/29/2012 2:57:08 PM", "TimeRemaining" : "00:18:39", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 507, "PlatformKey" : "RPRKN", "InformationType" : "Predicted", "Time" : "12/29/2012 2:58:36 PM", "TimeRemaining" : "00:20:07", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 507, "PlatformKey" : "RMGHN", "InformationType" : "Predicted", "Time" : "12/29/2012 3:01:15 PM", "TimeRemaining" : "00:22:46", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 507, "PlatformKey" : "RKENN", "InformationType" : "Predicted", "Time" : "12/29/2012 3:03:22 PM", "TimeRemaining" : "00:24:53", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 507, "PlatformKey" : "RCENN", "InformationType" : "Predicted", "Time" : "12/29/2012 3:06:28 PM", "TimeRemaining" : "00:27:59", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 507, "PlatformKey" : "RHARN", "InformationType" : "Predicted", "Time" : "12/29/2012 3:09:39 PM", "TimeRemaining" : "00:31:11", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 507, "PlatformKey" : "RPORN", "InformationType" : "Predicted", "Time" : "12/29/2012 3:12:39 PM", "TimeRemaining" : "00:34:11", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 507, "PlatformKey" : "RDAVN", "InformationType" : "Predicted", "Time" : "12/29/2012 3:14:53 PM", "TimeRemaining" : "00:36:24", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 507, "PlatformKey" : "RALEN", "InformationType" : "Predicted", "Time" : "12/29/2012 3:17:52 PM", "TimeRemaining" : "00:39:24", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 510, "PlatformKey" : "RFIEN", "InformationType" : "Arrived", "Time" : "12/29/2012 2:37:34 PM", "TimeRemaining" : "-00:00:54", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 510, "PlatformKey" : "RSAVN", "InformationType" : "Predicted", "Time" : "12/29/2012 2:40:43 PM", "TimeRemaining" : "00:02:14", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 510, "PlatformKey" : "RJFKN", "InformationType" : "Predicted", "Time" : "12/29/2012 2:42:48 PM", "TimeRemaining" : "00:04:19", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 510, "PlatformKey" : "RANDN", "InformationType" : "Predicted", "Time" : "12/29/2012 2:45:10 PM", "TimeRemaining" : "00:06:41", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 510, "PlatformKey" : "RBRON", "InformationType" : "Predicted", "Time" : "12/29/2012 2:47:27 PM", "TimeRemaining" : "00:08:58", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 510, "PlatformKey" : "RSOUN", "InformationType" : "Predicted", "Time" : "12/29/2012 2:49:47 PM", "TimeRemaining" : "00:11:19", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 510, "PlatformKey" : "RDTCN", "InformationType" : "Predicted", "Time" : "12/29/2012 2:50:43 PM", "TimeRemaining" : "00:12:14", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 510, "PlatformKey" : "RPRKN", "InformationType" : "Predicted", "Time" : "12/29/2012 2:52:11 PM", "TimeRemaining" : "00:13:42", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 510, "PlatformKey" : "RMGHN", "InformationType" : "Predicted", "Time" : "12/29/2012 2:54:49 PM", "TimeRemaining" : "00:16:21", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 510, "PlatformKey" : "RKENN", "InformationType" : "Predicted", "Time" : "12/29/2012 2:56:56 PM", "TimeRemaining" : "00:18:28", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 510, "PlatformKey" : "RCENN", "InformationType" : "Predicted", "Time" : "12/29/2012 3:00:03 PM", "TimeRemaining" : "00:21:34", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 510, "PlatformKey" : "RHARN", "InformationType" : "Predicted", "Time" : "12/29/2012 3:03:14 PM", "TimeRemaining" : "00:24:46", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 510, "PlatformKey" : "RPORN", "InformationType" : "Predicted", "Time" : "12/29/2012 3:06:14 PM", "TimeRemaining" : "00:27:46", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 510, "PlatformKey" : "RDAVN", "InformationType" : "Predicted", "Time" : "12/29/2012 3:08:28 PM", "TimeRemaining" : "00:29:59", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 510, "PlatformKey" : "RALEN", "InformationType" : "Predicted", "Time" : "12/29/2012 3:11:27 PM", "TimeRemaining" : "00:32:59", "Revenue" : "Revenue", "Route" : "0" },
-{  "Line" : "Red", "Trip" : 512, "PlatformKey" : "RSAVS", "InformationType" : "Arrived", "Time" : "12/29/2012 2:37:46 PM", "TimeRemaining" : "-00:00:42", "Revenue" : "Revenue", "Route" : "1" },
-{  "Line" : "Red", "Trip" : 512, "PlatformKey" : "RFIES", "InformationType" : "Predicted", "Time" : "12/29/2012 2:41:47 PM", "TimeRemaining" : "00:03:18", "Revenue" : "Revenue", "Route" : "1" },
-{  "Line" : "Red", "Trip" : 512, "PlatformKey" : "RSHAS", "InformationType" : "Predicted", "Time" : "12/29/2012 2:43:47 PM", "TimeRemaining" : "00:05:18", "Revenue" : "Revenue", "Route" : "1" },
-{  "Line" : "Red", "Trip" : 512, "PlatformKey" : "RASHS", "InformationType" : "Predicted", "Time" : "12/29/2012 2:46:18 PM", "TimeRemaining" : "00:07:49", "Revenue" : "Revenue", "Route" : "1" },
-{  "Line" : "Red", "Trip" : 513, "PlatformKey" : "RSAVS", "InformationType" : "Arrived", "Time" : "12/29/2012 2:37:49 PM", "TimeRemaining" : "-00:00:39", "Revenue" : "Revenue", "Route" : "1" },
-{  "Line" : "Red", "Trip" : 513, "PlatformKey" : "RFIES", "InformationType" : "Predicted", "Time" : "12/29/2012 2:41:50 PM", "TimeRemaining" : "00:03:21", "Revenue" : "Revenue", "Route" : "1" },
-{  "Line" : "Red", "Trip" : 513, "PlatformKey" : "RSHAS", "InformationType" : "Predicted", "Time" : "12/29/2012 2:43:50 PM", "TimeRemaining" : "00:05:21", "Revenue" : "Revenue", "Route" : "1" },
-{  "Line" : "Red", "Trip" : 513, "PlatformKey" : "RASHS", "InformationType" : "Predicted", "Time" : "12/29/2012 2:46:21 PM", "TimeRemaining" : "00:07:52", "Revenue" : "Revenue", "Route" : "1" },
-{  "Line" : "Red", "Trip" : 514, "PlatformKey" : "RSAVS", "InformationType" : "Arrived", "Time" : "12/29/2012 2:38:01 PM", "TimeRemaining" : "-00:00:27", "Revenue" : "Revenue", "Route" : "1" },
-{  "Line" : "Red", "Trip" : 514, "PlatformKey" : "RFIES", "InformationType" : "Predicted", "Time" : "12/29/2012 2:42:02 PM", "TimeRemaining" : "00:03:33", "Revenue" : "Revenue", "Route" : "1" },
-{  "Line" : "Red", "Trip" : 514, "PlatformKey" : "RSHAS", "InformationType" : "Predicted", "Time" : "12/29/2012 2:44:02 PM", "TimeRemaining" : "00:05:33", "Revenue" : "Revenue", "Route" : "1" },
-{  "Line" : "Red", "Trip" : 514, "PlatformKey" : "RASHS", "InformationType" : "Predicted", "Time" : "12/29/2012 2:46:33 PM", "TimeRemaining" : "00:08:04", "Revenue" : "Revenue", "Route" : "1" }
+    {
+        "Stop": "Alewife"
+    },
+    {
+        "Stop": "Davis"
+    },
+    {
+        "Stop": "Porter Square"
+    },
+    {
+        "Stop": "Harvard Square"
+    },
+    {
+        "Stop": "Central Square"
+    },
+    {
+        "Stop": "Kendall/MIT"
+    },
+    {
+        "Stop": "Charles/MGH"
+    },
+    {
+        "Stop": "Park Street"
+    },
+    {
+        "Stop": "Downtown Crossing"
+    },
+    {
+        "Stop": "South Station"
+    },
+    {
+        "Stop": "Broadway"
+    },
+    {
+        "Stop": "Andrew"
+    },
+    {
+        "Stop": "JFK/UMass"
+    },
+    {
+        "Stop": "North Quincy"
+    },
+    {
+        "Stop": "Wollaston"
+    },
+    {
+        "Stop": "Quincy Center"
+    },
+    {
+        "Stop": "Quincy Adams"
+    },
+    {
+        "Stop": "Braintree"
+    },
+    {
+        "Stop": "Savin Hill"
+    },
+    {
+        "Stop": "Fields Corner"
+    },
+    {
+        "Stop": "Shawmut"
+    },
+    {
+        "Stop": "Ashmont"
+    }
 ]

@@ -13,10 +13,18 @@ app.events = app.events || _.extend({}, Backbone.Events);
 
 (function(models){
 
+    models.Line = Backbone.Model.extend({
+        defaults: {
+            Name: null,
+            PlatformUrl: null,
+            ActivityUrl: null
+        }
+    });
+
     models.Platform = Backbone.Model.extend({
         defaults: {
-            "StopID": null,
-            "Stop": null
+            StopID: null,
+            Stop: null
         }
     });
 
@@ -42,12 +50,13 @@ app.events = app.events || _.extend({}, Backbone.Events);
 
 (function(collections){
 
+    collections.Lines = Backbone.Collection.extend({
+        model: app.models.Line
+    });
+
     collections.StopActivities = Backbone.Collection.extend({
         model: app.models.StopActivity,
-        url: 'http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20csv%20where%20url%3D%22' +
-            'http%3A%2F%2Fdeveloper.mbta.com%2Flib%2Frthr%2Fred.csv%22%20and%20columns%20%3D%20%22CurrentTime%2C'  +
-            'Line%2CTripID%2CDestination%2CStopID%2CStop%2CSecondsAway%2CPosTimestamp%2CTrainNumber%2CPosLatitude%' +
-            '2CPosLongitude%2CPosHeading%2CNote%22%20and%20Line%20!%3D%20%22Line%22&format=json',
+        lineName: null,
         sync: function(method, model, options){
             options.timeout = 10000;
             options.dataType = 'jsonp';
@@ -56,6 +65,10 @@ app.events = app.events || _.extend({}, Backbone.Events);
         parse: function(response) {
             return response.query.results.row;
         },
+        setCurrentLine: function(line) {
+            this.lineName = line.get('Name');
+            this.url = line.get('ActivityUrl');
+        },
         comparator: function(item) {
             return Number(item.get('SecondsAway'))
         }
@@ -63,7 +76,11 @@ app.events = app.events || _.extend({}, Backbone.Events);
 
     collections.Platforms = Backbone.Collection.extend({
         model: app.models.Platform,
-        url: 'data/Platforms.json'
+        lineName: null,
+        setCurrentLine: function(line) {
+            this.lineName = line.get('Name');
+            this.url = line.get('PlatformUrl');
+        }
     });
 
 })(app.collections = app.collections || {});
@@ -75,11 +92,56 @@ app.events = app.events || _.extend({}, Backbone.Events);
         className: 'list inset'
     });
 
+    views.LineListItem = Backbone.View.extend({
+        tagName: 'li',
+        events: {
+            'click': function() {
+                app.router.navigate('/' + this.model.get('Name').toLowerCase(), true);
+                return false;
+            }
+        },
+        render: function(){
+            this.$el.html(this.model.get('Name'));
+            return this;
+        }
+    });
+
+    views.LineList = views.BaseListView.extend({
+        render: function() {
+            var divider = $('<li class="list-divider">Trains</li>');
+            this.$el.append(divider);
+
+            _(this.collection.models).each(function(line){
+                this.$el.append(new views.LineListItem({model:line}).render().el);
+            }, this);
+            return this;
+        }
+    });
+
+    views.LineListView = Backbone.View.extend({
+        listView: null,
+        initialize: function() {
+            app.events.trigger('header:right:hide');
+            app.events.trigger('header:left:hide');
+
+            app.events.trigger('header:title:reset');
+
+            this.listView = new views.LineList({
+                collection: app.data.LineData
+            });
+        },
+        render: function() {
+            this.$el.html(this.listView.render().el);
+            return this;
+        }
+    });
+
     views.CurrentStopListItem = Backbone.View.extend({
         tagName: 'li',
         events: {
             'click': function() {
-                var url = 'platform/' + slugify(this.model.get('Stop'));
+                var line = app.data.getCurrentLineName();
+                var url = line + '/' + slugify(this.model.get('Stop'));
                 app.router.navigate(url, true);
                 return false;
             }
@@ -109,10 +171,11 @@ app.events = app.events || _.extend({}, Backbone.Events);
             });
         },
         render: function() {
-            app.events.trigger('header:title:reset');
+            var name = app.data.CurrentLine.get('Name');
+            app.events.trigger('header:title:set', name);
 
             app.events.trigger('header:right:hide');
-            app.events.trigger('header:left:hide');
+            app.events.trigger('header:lines:show');
 
             this.$el.html(this.listView.render().el);
             return this;
@@ -136,7 +199,7 @@ app.events = app.events || _.extend({}, Backbone.Events);
             this.id = options.id;
 
             app.events.trigger('header:right:show');
-            app.events.trigger('header:left:show');
+            app.events.trigger('header:stops:show');
 
             var platform = app.data.PlatformData.find(function(model){
                 var id = slugify(model.get('Stop'));
@@ -187,10 +250,17 @@ app.events = app.events || _.extend({}, Backbone.Events);
 
     views.ActivityListItem = Backbone.View.extend({
         tagName: 'li',
+        _template: null,
+        initialize: function() {
+            _template = $('#tpl-activity-item').html()
+        },
         render: function() {
             var m = moment();
             m.add('seconds', this.model.get('SecondsAway'));
-            this.$el.html(m.fromNow());
+            this.$el.html(_.template(_template, {
+                seconds:m.fromNow(),
+                time:m.format('LLLL')
+            }));
             return this;
         }
     });
@@ -222,11 +292,12 @@ app.events = app.events || _.extend({}, Backbone.Events);
         rightButton: null,
         title: null,
         initialTitle: 'MBTA Train Tracker',
+        leftTarget: null,
         events: {
             'click #back-button': function() {
-                _gaq.push(['_trackEvent', 'Header', 'Back']);
+                _gaq.push(['_trackEvent', 'Header', $(this).text()]);
 
-                app.router.navigate('', true);
+                app.router.navigate(this.leftTarget, true);
                 return false;
             },
             'click #next-button': function() {
@@ -242,7 +313,17 @@ app.events = app.events || _.extend({}, Backbone.Events);
             this.rightButton = $('#next-button');
             this.title = $('#title');
 
-            app.events.on('header:left:show', function() {
+            app.events.on('header:stops:show', function() {
+                this.leftTarget = app.data.getCurrentLineName();
+
+                this.leftButton.text('Stops');
+                this.leftButton.show();
+            }, this);
+
+            app.events.on('header:lines:show', function() {
+                this.leftTarget = '';
+
+                this.leftButton.text('Lines');
                 this.leftButton.show();
             }, this);
 
@@ -275,7 +356,8 @@ app.events = app.events || _.extend({}, Backbone.Events);
     routers.Router = Backbone.Router.extend({
        routes: {
            '': 'index',
-           'platform/:id': 'station'
+           ':line': 'line',
+           ':line/:id': 'station'
        },
        showView: function(view) {
            _gaq.push(['_trackPageview']);
@@ -289,45 +371,120 @@ app.events = app.events || _.extend({}, Backbone.Events);
             return view;
         },
         index: function() {
-            this.showView(new app.views.CurrentStopView());
+            _gaq.push(['_trackEvent', 'Homepage', 'Index']);
+            
+            this.showView(new app.views.LineListView());
         },
-        station: function(id) {
-            _gaq.push(['_trackEvent', 'Activities', id]);
+        line: function(line) {
+            _gaq.push(['_trackEvent', line, 'Index']);
 
-            var v = new app.views.PlatformListView({
-                id: id
-            });
-            this.showView(v);
+            var resolved = app.data.getLineFromName(line);
+
+            if (!resolved) {
+                app.router.navigate('', true);
+            } else {
+                app.data.CurrentLine = resolved;
+                loadData(function() {
+                    var v = new app.views.CurrentStopView();
+                    this.showView(v);
+                }, this);
+            }
+        },
+        station: function(line, id) {
+            _gaq.push(['_trackEvent', line, id]);
+
+            var resolved = app.data.getLineFromName(line);
+
+            if (!resolved) {
+                app.router.navigate('', true);
+            } else {
+                app.data.CurrentLine = resolved;
+                loadData(function() {
+                    var v = new app.views.PlatformListView({
+                        id: id
+                    });
+                    this.showView(v);
+                }, this);
+            }
         }
     });
 
 })(app.routers = app.routers || {});
 
-function loadData(callback) {
-    app.data = app.data || {};
-
-    if (!app.data.PlatformData) {
-        app.data.PlatformData = new app.collections.Platforms();
+function loadData(callback, context) {
+    if (!context) {
+        context = this;
     }
 
-    var count = 0;
-    var handleSuccess = function() {
-        if (++count === 2 && callback) {
-            callback();
-        }
+    app.data = app.data || {};
+    app.data.CurrentLine = app.data.CurrentLine || null;
+
+    app.data.getLineFromName = function(name) {
+        return _(app.data.LineData.models).find(function(line){
+            return line.get('Name').toLowerCase() === name.toLowerCase();
+        });
     };
 
-    app.data.PlatformData.fetch({
-        success: handleSuccess
-    });
+    app.data.getCurrentLineName = function() {
+        return app.data.CurrentLine.get('Name').toLowerCase();
+    };
 
-    if (!app.data.ActivityData) {
-        app.data.ActivityData = new app.collections.StopActivities();
+    if (!app.data.LineData) {
+        var getActivityUrl = function(csvFileName) {
+            return 'http://query.yahooapis.com/v1/public/yql?q=select%20Destination%2CSecondsAway%2CStop%20from%20csv%20where%20url%3D%22http%3A%2F%2Fdeveloper.mbta.com%2Flib%2Frthr%2F'+ csvFileName + '.csv%22%20and%20columns%20%3D%20%22CurrentTime%2CLine%2CTripID%2CDestination%2CStopID%2CStop%2CSecondsAway%2CPosTimestamp%2CTrainNumber%2CPosLatitude%2CPosLongitude%2CPosHeading%2CNote%22%20and%20Line%20!%3D%20%22Line%22&format=json'
+        };
+
+        app.data.LineData = new app.collections.Lines([
+            new app.models.Line({
+                Name: 'Red',
+                PlatformUrl: 'data/Red.json',
+                ActivityUrl: getActivityUrl('red')
+            }),
+            new app.models.Line({
+                Name: 'Orange',
+                PlatformUrl: 'data/Orange.json',
+                ActivityUrl: getActivityUrl('orange')
+            }),
+            new app.models.Line({
+                Name: 'Blue',
+                PlatformUrl: 'data/Blue.json',
+                ActivityUrl: getActivityUrl('blue')
+            })
+        ]);
     }
 
-    app.data.ActivityData.fetch({
-        success: handleSuccess
-    });
+    if (app.data.CurrentLine) {
+        var counter = 0;
+        var handleSuccess = function() {
+            if (++counter === 2) {
+                callback.call(context);
+            }
+        };
+
+        var lineName = app.data.CurrentLine.get('Name');
+
+        app.data.ActivityData = app.data.ActivityData || new app.collections.StopActivities();
+
+        if (lineName !== app.data.ActivityData.lineName) {
+            app.data.ActivityData.setCurrentLine(app.data.CurrentLine);
+            app.data.ActivityData.reset();
+            app.data.ActivityData.fetch({success: handleSuccess});
+        } else {
+            handleSuccess();
+        }
+
+        app.data.PlatformData = app.data.PlatformData || new app.collections.Platforms();
+        if (lineName !== app.data.PlatformData.lineName) {
+            app.data.PlatformData.setCurrentLine(app.data.CurrentLine);
+            app.data.PlatformData.reset();
+            app.data.PlatformData.fetch({success: handleSuccess});
+        } else {
+            handleSuccess();
+        }
+
+    } else {
+        callback.call(context);
+    }
 }
 
 $(function() {
