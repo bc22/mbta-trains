@@ -381,6 +381,13 @@ app.events = app.events || _.extend({}, Backbone.Events);
 
     views.FavoriteListItem = Backbone.View.extend({
         tagName: 'li',
+        events: {
+            'click': function() {
+                var line = this.model.get('Line').toLowerCase();
+                var station = slugify(this.model.get('Station'));
+                app.router.navigate(line + '/' + station, true);
+            }
+        },
         render: function() {
             this.$el.html(this.model.get('Station'));
             return this;
@@ -420,7 +427,7 @@ app.events = app.events || _.extend({}, Backbone.Events);
             var f = app.data.Favorites.isFavorited(l, s, this.model);
 
             if (f) {
-                this.$el.html(this.model + '<a class="button-negaive">Unfavorite</a>');
+                this.$el.html(this.model + '<a class="button-negative">Unfavorite</a>');
             } else {
                 this.$el.html(this.model + '<a class="button-positive">Favorite</a>');
             }
@@ -428,12 +435,37 @@ app.events = app.events || _.extend({}, Backbone.Events);
             return this;
         },
         toggleFavorite: function() {
-            
+            var l = app.data.CurrentLine.get('Name');
+            var s = this.station.get('Stop');
+            var f = app.data.Favorites.isFavorited(l, s, this.model);
+
+            if (!f) {
+                var m = new app.models.Favorite({
+                    Line: app.data.CurrentLine.get('Name'),
+                    Station: this.station.get('Stop'),
+                    Target: this.model
+                });
+
+                app.data.Favorites.create(m);
+            } else {
+                f.destroy({
+                    success: function() {
+
+                    }
+                })
+            }
+
+            return false;
         }
     });
 
     views.TargetList = views.BaseListView.extend({
+        initialize: function() {
+            app.data.Favorites.on('change', this.render, this);
+            app.data.Favorites.on('remove', this.render, this);
+        },
         render: function() {
+            this.$el.html('');
             var targets = this.model.get('Targets');
             _(targets).each(function(target) {
                 var v = new app.views.TargetListItem({station:this.model, model:target});
