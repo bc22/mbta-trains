@@ -23,8 +23,8 @@ app.events = app.events || _.extend({}, Backbone.Events);
 
     models.Platform = Backbone.Model.extend({
         defaults: {
-            StopID: null,
-            Stop: null
+            Stop: null,
+            Targets: []
         }
     });
 
@@ -43,6 +43,14 @@ app.events = app.events || _.extend({}, Backbone.Events);
             PosLongitude: null,
             PosHeading: null,
             Note: null
+        }
+    });
+
+    models.Favorite = Backbone.Model.extend({
+        defaults: {
+            Line: null,
+            Station: null,
+            Target: null
         }
     });
 
@@ -80,6 +88,25 @@ app.events = app.events || _.extend({}, Backbone.Events);
         setCurrentLine: function(line) {
             this.lineName = line.get('Name');
             this.url = line.get('PlatformUrl');
+        },
+        getPlatformBySlug: function(slug) {
+            return this.find(function(model){
+                var id = slugify(model.get('Stop'));
+                return id === slug;
+            }, this);
+        }
+    });
+
+    collections.Favorites = Backbone.Collection.extend({
+        model: app.models.Favorite,
+        localStorage: new Backbone.LocalStorage("favorites"),
+        isFavorited: function(line, station, target) {
+            var found = _(this.models).find(function(model) {
+                return model.get('Line').toLowerCase() === line.toLowerCase() &&
+                    model.get('Station').toLowerCase() === station.toLowerCase() &&
+                    model.get('Target').toLowerCase() === target.toLowerCase();
+            });
+            return found;
         }
     });
 
@@ -120,6 +147,7 @@ app.events = app.events || _.extend({}, Backbone.Events);
 
     views.LineListView = Backbone.View.extend({
         listView: null,
+        favoriteView: null,
         initialize: function() {
             app.events.trigger('header:right:hide');
             app.events.trigger('header:left:hide');
@@ -129,9 +157,14 @@ app.events = app.events || _.extend({}, Backbone.Events);
             this.listView = new views.LineList({
                 collection: app.data.LineData
             });
+
+            this.favoriteView = new views.FavoriteList({
+                collection: app.data.Favorites
+            })
         },
         render: function() {
-            this.$el.html(this.listView.render().el);
+            this.$el.append(this.favoriteView.render().el);
+            this.$el.append(this.listView.render().el);
             return this;
         }
     });
@@ -201,10 +234,7 @@ app.events = app.events || _.extend({}, Backbone.Events);
             app.events.trigger('header:right:show');
             app.events.trigger('header:stops:show');
 
-            var platform = app.data.PlatformData.find(function(model){
-                var id = slugify(model.get('Stop'));
-                return id === this.id;
-            }, this);
+            var platform = app.data.PlatformData.getPlatformBySlug(this.id);
 
             if (platform) {
                 app.events.trigger('header:title:set', platform.get('Stop'));
@@ -252,12 +282,12 @@ app.events = app.events || _.extend({}, Backbone.Events);
         tagName: 'li',
         _template: null,
         initialize: function() {
-            _template = $('#tpl-activity-item').html()
+            this._template = '<%=seconds%><br/><span style="color: gray;"><%=time%></span>'
         },
         render: function() {
             var m = moment();
             m.add('seconds', this.model.get('SecondsAway'));
-            this.$el.html(_.template(_template, {
+            this.$el.html(_.template(this._template, {
                 seconds:m.fromNow(),
                 time:m.format('LLLL')
             }));
@@ -349,6 +379,88 @@ app.events = app.events || _.extend({}, Backbone.Events);
         }
     });
 
+    views.FavoriteListItem = Backbone.View.extend({
+        tagName: 'li',
+        render: function() {
+            this.$el.html(this.model.get('Station'));
+            return this;
+        }
+    });
+
+    views.FavoriteList = views.BaseListView.extend({
+        render: function() {
+            this.$el.html('');
+            if (this.collection.models.length){
+                var divider = $('<li class="list-divider">Favorites</li>');
+                this.$el.append(divider);
+
+                _(this.collection.models).each(function(favorite) {
+                    var v = new app.views.FavoriteListItem({model:favorite});
+                    this.$el.append(v.render().el);
+                }, this);
+            } else {
+                this.$el.hide();
+            }
+            return this;
+        }
+    });
+
+    views.TargetListItem = Backbone.View.extend({
+        tagName:'li',
+        station: null,
+        events: {
+            'click a': 'toggleFavorite'
+        },
+        initialize: function(options){
+            this.station = options.station;
+        },
+        render: function() {
+            var l = app.data.CurrentLine.get('Name');
+            var s = this.station.get('Stop');
+            var f = app.data.Favorites.isFavorited(l, s, this.model);
+
+            if (f) {
+                this.$el.html(this.model + '<a class="button-negaive">Unfavorite</a>');
+            } else {
+                this.$el.html(this.model + '<a class="button-positive">Favorite</a>');
+            }
+
+            return this;
+        },
+        toggleFavorite: function() {
+            
+        }
+    });
+
+    views.TargetList = views.BaseListView.extend({
+        render: function() {
+            var targets = this.model.get('Targets');
+            _(targets).each(function(target) {
+                var v = new app.views.TargetListItem({station:this.model, model:target});
+                this.$el.append(v.render().el);
+            }, this);
+            return this;
+        }
+    });
+
+    views.TargetListView = Backbone.View.extend({
+        targetList: null,
+        initialize: function() {
+            this.targetList = new views.TargetList({
+                model: this.model
+            });
+        },
+        render: function() {
+            this.$el.html(this.targetList.render().el);
+            return this;
+        },
+        onClosing: function() {
+            if (this.targetList) {
+                this.targetList.close();
+            }
+        }
+    });
+
 })(app.views = app.views || {});
 
 (function(routers){
@@ -357,9 +469,10 @@ app.events = app.events || _.extend({}, Backbone.Events);
        routes: {
            '': 'index',
            ':line': 'line',
-           ':line/:id': 'station'
+           ':line/:id': 'station',
+           ':line/:id/favorite': 'favorite'
        },
-       showView: function(view) {
+       showView: function(view, callback) {
            _gaq.push(['_trackPageview']);
 
             if (this.currentView){
@@ -368,7 +481,12 @@ app.events = app.events || _.extend({}, Backbone.Events);
 
             this.currentView = view;
             $('#content').html(this.currentView.render().el);
-            return view;
+
+           if (callback) {
+               callback();
+           }
+
+           return view;
         },
         index: function() {
             _gaq.push(['_trackEvent', 'Homepage', 'Index']);
@@ -403,6 +521,26 @@ app.events = app.events || _.extend({}, Backbone.Events);
                     var v = new app.views.PlatformListView({
                         id: id
                     });
+                    this.showView(v);
+                }, this);
+            }
+        },
+        favorite: function(line, id) {
+            _gaq.push(['_trackEvent', line, id]);
+
+            var resolved = app.data.getLineFromName(line);
+
+            if (!resolved) {
+                app.router.navigate('', true);
+            } else {
+                app.data.CurrentLine = resolved;
+                loadData(function() {
+                    var platform = app.data.PlatformData.getPlatformBySlug(id);
+
+                    var v = new app.views.TargetListView({
+                        model: platform
+                    });
+
                     this.showView(v);
                 }, this);
             }
@@ -453,14 +591,19 @@ function loadData(callback, context) {
         ]);
     }
 
-    if (app.data.CurrentLine) {
-        var counter = 0;
-        var handleSuccess = function() {
-            if (++counter === 2) {
-                callback.call(context);
-            }
-        };
+    var counter = 0;
+    var handleSuccess = function() {
+        if (++counter === 2) {
+            callback.call(context);
+        }
+    };
 
+    if (!app.data.Favorites) {
+        app.data.Favorites = new app.collections.Favorites();
+        app.data.Favorites.fetch();
+    }
+
+    if (app.data.CurrentLine) {
         var lineName = app.data.CurrentLine.get('Name');
 
         app.data.ActivityData = app.data.ActivityData || new app.collections.StopActivities();
