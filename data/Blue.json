@@ -1,38 +1,50 @@
 [
     {
-        "Stop": "Wonderland"
+        "Stop": "Wonderland",
+        "Targets": ["Bowdoin"]
     },
     {
-        "Stop": "Revere Beach"
+        "Stop": "Revere Beach",
+        "Targets": ["Wonderland", "Bowdoin"]
     },
     {
-        "Stop": "Beachmont"
+        "Stop": "Beachmont",
+        "Targets": ["Wonderland", "Bowdoin"]
     },
     {
-        "Stop": "Suffolk Downs"
+        "Stop": "Suffolk Downs",
+        "Targets": ["Wonderland", "Bowdoin"]
     },
     {
-        "Stop": "Orient Heights"
+        "Stop": "Orient Heights",
+        "Targets": ["Wonderland", "Bowdoin"]
     },
     {
-        "Stop": "Wood Island"
+        "Stop": "Wood Island",
+        "Targets": ["Wonderland", "Bowdoin"]
     },
     {
-        "Stop": "Airport"
+        "Stop": "Airport",
+        "Targets": ["Wonderland", "Bowdoin"]
     },
     {
-        "Stop": "Maverick"
+        "Stop": "Maverick",
+        "Targets": ["Wonderland", "Bowdoin"]
     },
     {
-        "Stop": "Aquarium"
+        "Stop": "Aquarium",
+        "Targets": ["Wonderland", "Bowdoin"]
     },
     {
-        "Stop": "State Street"
+        "Stop": "State Street",
+        "Targets": ["Wonderland", "Bowdoin"]
     },
     {
-        "Stop": "Government Center"
+        "Stop": "Government Center",
+        "Targets": ["Wonderland", "Bowdoin"]
     },
     {
-        "Stop": "Bowdoin"
+        "Stop": "Bowdoin",
+        "Targets": ["Wonderland"]
     }
 ]
