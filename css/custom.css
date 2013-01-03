@@ -1,0 +1,7 @@
+.list .right-text {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    left: auto;
+    margin-top: -10px;
+}

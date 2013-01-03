@@ -407,13 +407,42 @@ app.events = app.events || _.extend({}, Backbone.Events);
                 app.router.navigate(line + '/' + station, true);
             }
         },
+        initialize: function(options) {
+            this.nextTrain = options.next;
+        },
         render: function() {
-            this.$el.html(this.model.get('Station'));
+            var baseUrl = this.model.get('Station') + ' to ' + this.model.get('Target');
+
+            var nextText;
+            if (this.nextTrain) {
+                var m = moment();
+                m.add('seconds', this.nextTrain.get('SecondsAway'));
+                nextText = m.fromNow();
+            } else {
+                nextText = 'loading...';
+            }
+
+            this.$el.html(baseUrl + '<span class="right-text">' + nextText + '</span>');
             return this;
         }
     });
 
     views.FavoriteList = views.BaseListView.extend({
+        trainData: null,
+        initialize: function() {
+            if (app.data.Favorites.models.length) {
+                var items = buildYqlQuery(app.data.Favorites.toJSON());
+                this.trainData = new app.collections.StopActivities();
+                this.trainData.url = 'http://query.yahooapis.com/v1/public/yql?q=select%20Destination%2CSecondsAway%2CStop%20from%20csv%20where%20url%20in%20(%22http%3A%2F%2Fdeveloper.mbta.com%2Flib%2Frthr%2Forange.csv%22%2C%22http%3A%2F%2Fdeveloper.mbta.com%2Flib%2Frthr%2Fred.csv%22%2C%22http%3A%2F%2Fdeveloper.mbta.com%2Flib%2Frthr%2Fblue.csv%22)%20and%20columns%20%3D%20%22CurrentTime%2CLine%2CTripID%2CDestination%2CStopID%2CStop%2CSecondsAway%2CPosTimestamp%2CTrainNumber%2CPosLatitude%2CPosLongitude%2CPosHeading%2CNote%22%20and%20Line%20!%3D%20%22Line%22%20and%20' + items +'%20%7C%20sort(field%3D\'SecondsAway\')&format=json';
+
+                var that = this;
+                this.trainData.fetch({
+                    success: function() {
+                        that.render();
+                    }
+                });
+            }
+        },
         render: function() {
             this.$el.html('');
             if (this.collection.models.length){
@@ -421,7 +450,12 @@ app.events = app.events || _.extend({}, Backbone.Events);
                 this.$el.append(divider);
 
                 _(this.collection.models).each(function(favorite) {
-                    var v = new app.views.FavoriteListItem({model:favorite});
+                    var nextTrain = _(this.trainData.models).find(function(d){
+                        return d.get('Destination') === favorite.get('Target') &&
+                            d.get('Stop') === favorite.get('Station');
+                    });
+
+                    var v = new app.views.FavoriteListItem({model:favorite, next:nextTrain});
                     this.$el.append(v.render().el);
                 }, this);
             } else {

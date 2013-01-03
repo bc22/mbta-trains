@@ -15,3 +15,16 @@ function throttle(fn, delay) {
         }, delay);
     };
 }
+
+function buildYqlQuery(models) {
+    var fragments = [];
+
+    var t = _.template('(Stop = "<%=Station%>" and Destination = "<%=Target%>")');
+    _(models).each(function(model){
+        fragments.push(t(model));
+    }, this);
+
+    var joined = "(" + fragments.join(" OR ") + ")";
+
+    return encodeURIComponent(joined);
+}
