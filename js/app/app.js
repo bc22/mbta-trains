@@ -199,17 +199,17 @@ app.events = app.events || _.extend({}, Backbone.Events);
     views.CurrentStopView = Backbone.View.extend({
         listView: null,
         initialize: function() {
-            this.listView = new app.views.CurrentStopList({
-                collection: app.data.PlatformData
-            });
-        },
-        render: function() {
             var name = app.data.CurrentLine.get('Name');
             app.events.trigger('header:title:set', name);
 
             app.events.trigger('header:right:hide');
             app.events.trigger('header:lines:show');
 
+            this.listView = new app.views.CurrentStopList({
+                collection: app.data.PlatformData
+            });
+        },
+        render: function() {
             this.$el.html(this.listView.render().el);
             return this;
         },
@@ -226,6 +226,13 @@ app.events = app.events || _.extend({}, Backbone.Events);
             var v;
             while ((v = this.views.pop())) {
                 v.close();
+            }
+        },
+        events: {
+            'click #favorite-button': function() {
+                var line = app.data.getCurrentLineName();
+                app.router.navigate(line + '/' + this.id + '/favorite', true);
+                return false;
             }
         },
         initialize: function(options) {
@@ -245,6 +252,8 @@ app.events = app.events || _.extend({}, Backbone.Events);
         },
         render: function() {
             this.cleanUpViews();
+
+            var favoriteButton = $('<div style="padding: 10px"><a id="favorite-button" class="button-block">Manage Favorites</a></div>');
 
             var activities = app.data.ActivityData;
 
@@ -269,6 +278,8 @@ app.events = app.events || _.extend({}, Backbone.Events);
             }, this);
 
             this.$el.html('');
+
+            this.$el.append(favoriteButton);
 
             _(this.views).each(function(view){
                 this.$el.append(view.render().el);
@@ -357,6 +368,14 @@ app.events = app.events || _.extend({}, Backbone.Events);
                 this.leftButton.show();
             }, this);
 
+            app.events.on('header:stop:show', function(stop) {
+                var line = app.data.getCurrentLineName();
+                this.leftTarget = line + '/' + slugify(stop);
+
+                this.leftButton.text(stop);
+                this.leftButton.show();
+            }, this);
+
             app.events.on('header:left:hide', function() {
                 this.leftButton.hide();
             }, this);
@@ -420,6 +439,12 @@ app.events = app.events || _.extend({}, Backbone.Events);
         },
         initialize: function(options){
             this.station = options.station;
+
+            var name = this.station.get('Stop');
+            app.events.trigger('header:stop:show', name);
+            app.events.trigger('header:title:set', name + ' Favorites');
+            app.events.trigger('header:right:hide');
+
         },
         render: function() {
             var l = app.data.CurrentLine.get('Name');
