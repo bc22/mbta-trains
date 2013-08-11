@@ -1,90 +1,12 @@
-[
-    {
-        "Stop": "Alewife",
-        "Targets": ["Ashmont", "Braintree"]
-    },
-    {
-        "Stop": "Davis",
-        "Targets": ["Ashmont", "Braintree", "Alewife"]
-    },
-    {
-        "Stop": "Porter Square",
-        "Targets": ["Ashmont", "Braintree", "Alewife"]
-    },
-    {
-        "Stop": "Harvard Square",
-        "Targets": ["Ashmont", "Braintree", "Alewife"]
-    },
-    {
-        "Stop": "Central Square",
-        "Targets": ["Ashmont", "Braintree", "Alewife"]
-    },
-    {
-        "Stop": "Kendall/MIT",
-        "Targets": ["Ashmont", "Braintree", "Alewife"]
-    },
-    {
-        "Stop": "Charles/MGH",
-        "Targets": ["Ashmont", "Braintree", "Alewife"]
+,
+    
     },
     {
         "Stop": "Park Street",
         "Targets": ["Ashmont", "Braintree", "Alewife"]
     },
     {
-        "Stop": "Downtown Crossing",
-        "Targets": ["Ashmont", "Braintree", "Alewife"]
-    },
-    {
-        "Stop": "South Station",
-        "Targets": ["Ashmont", "Braintree", "Alewife"]
-    },
-    {
-        "Stop": "Broadway",
-        "Targets": ["Ashmont", "Braintree", "Alewife"]
-    },
-    {
-        "Stop": "Andrew",
-        "Targets": ["Ashmont", "Braintree", "Alewife"]
-    },
-    {
-        "Stop": "JFK/UMass",
-        "Targets": ["Ashmont", "Braintree", "Alewife"]
-    },
-    {
-        "Stop": "North Quincy",
-        "Targets": ["Braintree", "Alewife"]
-    },
-    {
         "Stop": "Wollaston",
         "Targets": ["Braintree", "Alewife"]
-    },
-    {
-        "Stop": "Quincy Center",
-        "Targets": ["Braintree", "Alewife"]
-    },
-    {
-        "Stop": "Quincy Adams",
-        "Targets": ["Braintree", "Alewife"]
-    },
-    {
-        "Stop": "Braintree",
-        "Targets": ["Alewife"]
-    },
-    {
-        "Stop": "Savin Hill",
-        "Targets": ["Ashmont", "Alewife"]
-    },
-    {
-        "Stop": "Fields Corner",
-        "Targets": ["Ashmont", "Alewife"]
-    },
-    {
-        "Stop": "Shawmut",
-        "Targets": ["Ashmont", "Alewife"]
-    },
-    {
-        "Stop": "Ashmont",
-        "Targets": ["Alewife"]
     }
 ]
